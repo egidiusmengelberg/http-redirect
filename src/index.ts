@@ -22,7 +22,11 @@ const server = Bun.serve({
 
     if (redirect) {
       const redirect_url = redirect.to + (redirect.keep_path ? path : '')
-      console.log(`redirecting ${hostname} to ${redirect_url} with code ${redirect.code}`)
+
+      if (Bun.env.DEBUG ?? false) {
+        console.log(`redirecting ${hostname} to ${redirect_url} with code ${redirect.code}`)
+      }
+      
       return Response.redirect(redirect_url, Number(redirect.code))
     }
 

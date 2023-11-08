@@ -17,6 +17,7 @@ The server is configured using environment variables. This makes it easy to depl
 ```dosini
 
 PORT=1234 # default is 3000
+DEBUG=true # default is false (logs redirects)
 
 DEFAULT_REDIRECT_URL="https://google.com"
 DEFAULT_REDIRECT_CODE=302
