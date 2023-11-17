@@ -1,3 +1,5 @@
+import { parseEnvBool } from "./utils"
+
 export default function() {
     const env = Object.entries(Bun.env).map(([key, value]) => ({ key, value }))
 
@@ -14,7 +16,7 @@ export default function() {
         const code = Number(redirect_settings.find((e) => e.key === `REDIRECT_${from_parts.join('_')}_CODE`)?.value) ?? 302
         const keep_path = redirect_settings.find((e) => e.key === `REDIRECT_${from_parts.join('_')}_KEEP_PATH`)?.value === 'true' ?? false
 
-        if (Bun.env.DEBUG ?? false) {
+        if (parseEnvBool('DEBUG', false)) {
             console.log(`Redirecting ${from} to ${to} with code ${code} and keep_path ${keep_path}`)
         }
 

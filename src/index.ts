@@ -1,11 +1,12 @@
 import parseEnv from "./parseEnv"
+import { parseEnvBool, parseEnvNumber, parseEnvString } from "./utils"
 
 console.log('Starting http-redirect')
 
 const redirects = parseEnv()
 
-const default_redirect = Bun.env.DEFAULT_REDIRECT_URL ?? 'https://google.com'
-const default_redirect_code = Number(Bun.env.DEFAULT_REDIRECT_CODE) ?? 302
+const default_redirect: string = parseEnvString('DEFAULT_REDIRECT','https://www.google.com')
+const default_redirect_code: number = parseEnvNumber('DEFAULT_REDIRECT_CODE', 302)
 
 console.log(`Default redirect is ${default_redirect} with code ${default_redirect_code}`)
 
@@ -23,7 +24,7 @@ const server = Bun.serve({
     if (redirect) {
       const redirect_url = redirect.to + (redirect.keep_path ? path : '')
 
-      if (Bun.env.DEBUG ?? false) {
+      if (parseEnvBool('DEBUG', false)) {
         console.log(`redirecting ${hostname} to ${redirect_url} with code ${redirect.code}`)
       }
       
@@ -38,7 +39,7 @@ const server = Bun.serve({
   },
 })
 
-console.log(`Server running at port ${server.port}`)
+console.log(`Server running at ${server.url}`)
 
 process.on("exit", () => {
   console.log(`Shutting down server...`)
