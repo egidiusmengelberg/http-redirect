@@ -5,7 +5,7 @@ console.log('Starting http-redirect')
 
 const redirects = parseEnv()
 
-const default_redirect: string = parseEnvString('DEFAULT_REDIRECT','https://www.google.com')
+const default_redirect: string = parseEnvString('DEFAULT_REDIRECT','https://www.example.com')
 const default_redirect_code: number = parseEnvNumber('DEFAULT_REDIRECT_CODE', 302)
 
 console.log(`Default redirect is ${default_redirect} with code ${default_redirect_code}`)
